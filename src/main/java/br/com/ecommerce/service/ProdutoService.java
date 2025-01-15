@@ -5,9 +5,11 @@ import br.com.ecommerce.model.ProdutoModel;
 import br.com.ecommerce.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,11 +37,28 @@ public class ProdutoService {
     public void delete(Long id){
         Optional<ProdutoModel> produtoOpt = produtoRepository.findById(id);
         if(produtoOpt.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O produto cadastro com o ID: " + id + "Não existe");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O produto cadastro com o ID: " + id + " Não existe");
         }
         produtoRepository.deleteById(id);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ProdutoModel> findById(Long id){
+        Optional<ProdutoModel> produtoOpt = produtoRepository.findById(id);
+        if(produtoOpt.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O produto não existe com o id: " + id);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(produtoOpt.get());
+    }
 
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<ProdutoModel>> findByNomeContainingIgnoreCase(String nome){
+        return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.findByNomeContainingIgnoreCase(nome));
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<ProdutoModel>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.findAll());
+    }
 
 }
