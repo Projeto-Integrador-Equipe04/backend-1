@@ -6,13 +6,9 @@ import br.com.ecommerce.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-//127.0.0.1:8080/produto
-//localhost:8080/produto
-//0.0.0.0:8080/produto
 @RequestMapping("/produto")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class ProdutoController {
@@ -28,8 +24,14 @@ public class ProdutoController {
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("")
-    public ResponseEntity<ProdutoModel> update(@Valid @RequestBody ProdutoUpdateDto produtoUpdateDto){
-        return produtoService.update(produtoUpdateDto);
+    public void update(@Valid @RequestBody ProdutoUpdateDto produtoUpdateDto){
+        produtoService.update(produtoUpdateDto);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("")
+    public void delete(Long id){
+        produtoService.delete(id);
     }
 
 }
