@@ -22,13 +22,13 @@ public class ProdutoController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public ResponseEntity<ProdutoModel> create(@RequestBody @Valid ProdutoModel produtoModel){
-        return produtoService.create(produtoModel);
+    public void create(@Valid @RequestBody ProdutoModel produtoModel){
+        produtoService.create(produtoModel);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("")
-    public ResponseEntity<ProdutoModel> update(@RequestBody @Valid ProdutoUpdateDto produtoUpdateDto){
+    public ResponseEntity<ProdutoModel> update(@Valid @RequestBody ProdutoUpdateDto produtoUpdateDto){
         return produtoService.update(produtoUpdateDto);
     }
 

@@ -18,8 +18,8 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ProdutoModel> create(ProdutoModel produtoModel){
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produtoModel));
+    public void create(ProdutoModel produtoModel){
+        produtoRepository.save(produtoModel);
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -27,10 +27,10 @@ public class ProdutoService {
         Optional<ProdutoModel> produtoOpt = produtoRepository.findById(produtoUpdateDto.id());
         if(produtoOpt.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado com o id informado: " + produtoUpdateDto.id());
-        }else{
-            ProdutoModel produtoModel = new ProdutoModel(produtoUpdateDto.id(), produtoUpdateDto.nome(), produtoUpdateDto.descricao(), produtoUpdateDto.preco(), produtoUpdateDto.categoria());
-            return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produtoModel));
         }
+
+        ProdutoModel produtoModel = new ProdutoModel(produtoUpdateDto.id(), produtoUpdateDto.nome(), produtoUpdateDto.descricao(), produtoUpdateDto.preco(), produtoUpdateDto.categoria());
+        return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produtoModel));
     }
 
 }
