@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public record ProdutoUpdateDto(
         @NotNull(message = "O atributo ID é obrigatório")
-        long id,
+        Long id,
         @NotNull(message = "Titulo não pode ficar em branco")
         @Size(min = 5, max = 60, message = "Nome deve estar entre 5 a 60 caracteres")
         String nome,
