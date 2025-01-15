@@ -22,7 +22,7 @@ public class ProdutoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Titulo não pode ficar em branco")
+    @NotNull(message = "Nome não pode ficar em branco")
     @Size(min = 5, max = 60, message = "Nome deve estar entre 5 a 60 caracteres")
     private String nome;
 
